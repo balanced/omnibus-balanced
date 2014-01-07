@@ -1,31 +1,9 @@
-.rake_test_cache
-.rakeTasks
-.ruby-version
-Gemfile.lock
-
-*~
-
-###
-# Ignore Chef key files and secrets
-###
-.chef/*.pem
-.chef/encrypted_data_bag_secret
-
-## Berks/vagrant/test-kitchen, etc.
+*.gem
+.bundle
+vendor/bundle
+pkg/*
 .vagrant
-.kitchen
-.kitchen.local.yml
-.DS_Store
-
-## Chef-Zero
-.zero-knife.rb
-cookbooks
-
-
-# editors
-*.iml
-data_bags/aws/s3.json
+bin/*
+files/**/cache/
+vendor/cookbooks
 *.project
-*.pydevproject
-.settings
-.chef/knife.local.rb
