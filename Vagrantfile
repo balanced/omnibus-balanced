@@ -16,11 +16,7 @@ Vagrant.configure('2') do |config|
   config.vm.hostname = "#{project_name}-omnibus-build-lab"
 
   %w{
-    ubuntu-10.04
-    ubuntu-11.04
     ubuntu-12.04
-    centos-5.10
-    centos-6.5
   }.each do |platform|
 
     config.vm.define platform do |c|
