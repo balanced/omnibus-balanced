@@ -16,8 +16,23 @@
 # limitations under the License.
 #
 
-source 'https://rubygems.org'
+name 'brache'
+maintainer 'Noah Kantrowitz <noah@coderanger.net>'
+homepage 'https://github.com/balanced/brache'
 
-gem 'omnibus', '~> 1.3.0'
-gem 'omnibus-software', github: 'coderanger/omnibus-software'
+replaces        'brache'
+install_path    '/opt/brache'
+build_version   Omnibus::BuildVersion.new.semver
+build_iteration 1
 
+# creates required build directories
+dependency 'preparation'
+
+# brache dependencies/components
+dependency 'brache'
+
+# version manifest file
+dependency 'version-manifest'
+
+exclude '\.git*'
+exclude 'bundler\/git'
