@@ -17,7 +17,7 @@
 #
 
 name 'brache'
-maintainer 'Noah Kantrowitz <noah@coderanger.net>'
+maintainer 'Balanced <dev@balancedpayments.com>'
 homepage 'https://github.com/balanced/brache'
 
 replaces        'brache'
