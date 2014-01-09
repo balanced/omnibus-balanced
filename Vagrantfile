@@ -9,7 +9,7 @@ end
 
 host_project_path = File.expand_path('..', __FILE__)
 guest_project_path = "/home/vagrant/#{File.basename(host_project_path)}"
-project_name = 'balanced'
+project_name = ENV['OMNIBUS_PROJECT'] || 'balanced'
 
 Vagrant.configure('2') do |config|
 
@@ -40,6 +40,7 @@ Vagrant.configure('2') do |config|
 
   # Enable the berkshelf-vagrant plugin
   config.berkshelf.enabled = true
+
   config.ssh.forward_agent = true
 
   host_project_path = File.expand_path('..', __FILE__)

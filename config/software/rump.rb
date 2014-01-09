@@ -1,5 +1,4 @@
 #
-# Author:: Andrew Imam <andrew@balancedpayments.com>
 # Author:: Noah Kantrowitz <noah@coderanger.net>
 #
 # Copyright 2014, Balanced, Inc.
@@ -30,20 +29,13 @@ relative_path 'rump'
 always_build true
 
 build do
-  block do
-    project = self.project
-    if project.name == 'rump'
-      shell = Mixlib::ShellOut.new('git describe --tags', cwd: self.project_dir)
-      shell.run_command
-      if shell.exitstatus == 0
-        build_version = shell.stdout.chomp
-        project.build_version build_version
-        project.build_iteration ENV['RUMP_PACKAGE_ITERATION'] ? ENV['RUMP_PACKAGE_ITERATION'].to_i : 1
-      end
-    end
-  end
-
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded . kazoo>=1.3.1 newrelic>=1.13.1.31 raven==3.5.2", cwd: "#{project_dir}/src"
-  command "ln -fs #{install_dir}/embedded/bin/rump #{install_dir}/bin/rump"
-  command "ln -fs #{install_dir}/embedded/bin/rumpd #{install_dir}/bin/rumpd"
+  command(
+    ["#{install_dir}/embedded/bin/pip",
+     "install",
+     "--install-option=--prefix=#{install_dir}/embedded",
+     ".",
+     "kazoo>=1.3.1",
+     "newrelic>=1.13.1.31",
+     "raven==3.5.2"].join(" "),
+    :cwd => "#{project_dir}/src")
 end
