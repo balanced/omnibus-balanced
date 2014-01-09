@@ -1,19 +1,50 @@
-name "rump"
-version "0.1.0"
+#
+# Author:: Andrew Imam <andrew@balancedpayments.com>
+# Author:: Noah Kantrowitz <noah@coderanger.net>
+#
+# Copyright 2014, Balanced, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-dependency "python"
-dependency "pip"
-dependency "rsync"
+name 'rump'
 
-source :url => "https://s3-us-west-1.amazonaws.com/omniefd/#{name}-#{version}.tar.gz",
-       :md5 => "9da9db4d4e47a073407692e697368699"
-       
-relative_path "#{name}-#{version}"
+dependency 'setuptools'
+dependency 'pip'
 
-prefix="#{install_dir}/embedded"
-libdir="#{prefix}/lib"
-bindir="#{prefix}/bin"
+source git: 'git@github.com:balanced/rump.git'
+version ENV['RUMP_VERSION'] || 'ohaul'
+
+relative_path 'rump'
+
+always_build true
 
 build do
-  command "#{prefix}/bin/pip install -e .[kazoo,raven,newrelic]"
+  block do
+    project = self.project
+    if project.name == 'rump'
+      shell = Mixlib::ShellOut.new('git describe --tags', cwd: self.project_dir)
+      shell.run_command
+      if shell.exitstatus == 0
+        build_version = shell.stdout.chomp
+        project.build_version build_version
+        project.build_iteration ENV['RUMP_PACKAGE_ITERATION'] ? ENV['RUMP_PACKAGE_ITERATION'].to_i : 1
+      end
+    end
+  end
+
+  #command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .[kazoo,raven,newrelic]", cwd: "#{project_dir}/src"
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", cwd: "#{project_dir}/src"
+  command "ln -s #{install_dir}/embedded/bin/rump #{install_dir}/bin/rump"
+  command "ln -s #{install_dir}/embedded/bin/rumpd #{install_dir}/bin/rumpd"
 end
