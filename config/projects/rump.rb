@@ -1,4 +1,5 @@
 #
+# Author:: Andrew Imam <andrew@balancedpayments.com>
 # Author:: Noah Kantrowitz <noah@coderanger.net>
 #
 # Copyright 2014, Balanced, Inc.
@@ -22,8 +23,8 @@ homepage 'https://github.com/balanced/rump'
 
 replaces        'rump'
 install_path    '/opt/rump'
-build_version   ENV['RUMP_PACKAGE_VERSION'] || '0.1.0'
-build_iteration ENV['RUMP_PACKAGE_ITERATION'] ? ENV['RUMP_PACKAGE_ITERATION'].to_i : 1
+build_version   Omnibus::BuildVersion.new.semver
+build_iteration 1
 
 # creates required build directories
 dependency 'preparation'
