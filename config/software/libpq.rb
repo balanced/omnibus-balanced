@@ -47,6 +47,4 @@ build do
   command "make -C src/include install"
   command "make -C src/interfaces install"
   command "make -C src/bin/pg_config install"
-
-  %w[ libpq-fe.h libpq-events.h ]
 end

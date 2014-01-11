@@ -39,17 +39,17 @@ build do
       shell.run_command
       if shell.exitstatus == 0
         build_version = shell.stdout.chomp
-        project.build_version build_version
+        project.build_version /^v(\d+)\.(\d+)\.(\d+)/.match(build_version)[1..3].join('.')
         project.build_iteration ENV['BRACHE_PACKAGE_ITERATION'] ? ENV['BRACHE_PACKAGE_ITERATION'].to_i : 1
       end
     end
   end
 
   env = {
-	"LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-	"CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-	"LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-	"PATH" => "/opt/brache/embedded/bin:" + (ENV['PATH'] || '') 
+	  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+	  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+	  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+	  "PATH" => "/opt/brache/embedded/bin:" + (ENV['PATH'] || '') 
   }
 
   command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", :env => env
