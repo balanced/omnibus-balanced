@@ -20,12 +20,12 @@ name 'brache'
 
 dependency 'pip'
 
-# for lxml
 dependency 'libxml2'
 dependency 'libxslt'
+dependency 'libpq'
 
 source git: 'git@github.com:balanced/brache.git'
-version ENV['BRACHE_VERSION'] || 'use-sterling'
+version ENV['BRACHE_VERSION'] || 'fixit'
 
 relative_path 'brache'
 
@@ -45,5 +45,12 @@ build do
     end
   end
 
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded ."
+  env = {
+	"LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+	"CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+	"LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+	"PATH" => "/opt/brache/embedded/bin:" + (ENV['PATH'] || '') 
+  }
+
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", :env => env
 end
