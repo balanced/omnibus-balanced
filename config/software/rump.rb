@@ -37,7 +37,8 @@ build do
       shell.run_command
       if shell.exitstatus == 0
         build_version = shell.stdout.chomp
-        project.build_version /^v(\d+)\.(\d+)\.(\d+)/.match(build_version)[1..3].join('.')
+        build_version = build_version[1..-1] if build_version[0] == 'v'
+        project.build_version build_version
         project.build_iteration ENV['RUMP_PACKAGE_ITERATION'] ? ENV['RUMP_PACKAGE_ITERATION'].to_i : 1
       end
     end
