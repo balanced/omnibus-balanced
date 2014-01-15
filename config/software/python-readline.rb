@@ -29,5 +29,5 @@ relative_path "readline-#{version}"
 build do
   env = { "CFLAGS" => "-I#{install_dir}/embedded/include",
           "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib" }
-  command "#{install_dir}/embedded/bin/python install --prefix=#{install_dir}/embedded", env: env
+  command "#{install_dir}/embedded/bin/pip install -I --build #{install_dir}/embedded readline", env: env
 end
