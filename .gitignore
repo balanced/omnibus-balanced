@@ -10,4 +10,5 @@ vendor/cookbooks
 .ccache/
 .pip/
 .ssh/
-.ruby-version
+*.iml
+*.idea
