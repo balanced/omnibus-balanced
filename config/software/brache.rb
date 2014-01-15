@@ -50,8 +50,8 @@ build do
 	  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
 	  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
 	  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-	  "PATH" => "/opt/brache/embedded/bin:" + (ENV['PATH'] || '') 
+	  "PATH" => "/opt/brache/embedded/bin:#{ENV['PATH']}",
   }
 
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", :env => env
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
