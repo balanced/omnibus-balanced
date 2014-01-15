@@ -31,6 +31,7 @@ dependency 'preparation'
 
 # brache dependencies/components
 dependency 'rump'
+dependency 'ipython'
 
 # version manifest file
 dependency 'version-manifest'
