@@ -16,24 +16,18 @@
 # limitations under the License.
 #
 
-name 'brache'
-maintainer 'Balanced <dev@balancedpayments.com>'
-homepage 'https://github.com/balanced/brache'
+name 'python-readline'
+version '6.2.4.1'
 
-replaces 'brache'
-install_path '/opt/brache'
-build_version '0'
-build_iteration 1
+dependency 'setuptools'
+dependency 'readline'
 
-# creates required build directories
-dependency 'preparation'
+source url: "https://pypi.python.org/packages/source/r/readline/readline-#{version}.tar.gz", md5: '578237939c81fdbc2c8334d168b17907'
 
-# brache dependencies/components
-dependency 'brache'
-dependency 'ipython'
+relative_path "readline-#{version}"
 
-# version manifest file
-dependency 'version-manifest'
-
-exclude '\.git*'
-exclude 'bundler\/git'
+build do
+  env = { "CFLAGS" => "-I#{install_dir}/embedded/include",
+          "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib" }
+  command "#{install_dir}/embedded/bin/python install --prefix=#{install_dir}/embedded", env: env
+end
