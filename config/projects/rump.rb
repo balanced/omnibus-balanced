@@ -21,9 +21,9 @@ name 'rump'
 maintainer 'Balanced <dev@balancedpayments.com>'
 homepage 'https://github.com/balanced/rump'
 
-replaces        'rump'
-install_path    '/opt/rump'
-build_version   Omnibus::BuildVersion.new.semver
+replaces 'rump'
+install_path '/opt/rump'
+build_version '0'
 build_iteration 1
 
 # creates required build directories
