@@ -20,9 +20,9 @@ name 'brache'
 maintainer 'Balanced <dev@balancedpayments.com>'
 homepage 'https://github.com/balanced/brache'
 
-replaces        'brache'
-install_path    '/opt/brache'
-build_version   Omnibus::BuildVersion.new.semver
+replaces 'brache'
+install_path '/opt/brache'
+build_version '0'
 build_iteration 1
 
 # creates required build directories
