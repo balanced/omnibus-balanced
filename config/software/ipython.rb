@@ -27,5 +27,5 @@ source url: "https://pypi.python.org/packages/source/i/ipython/ipython-#{version
 relative_path "ipython-#{version}"
 
 build do
-  command "#{install_dir}/embedded/bin/python install --prefix=#{install_dir}/embedded"
+  command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
 end
