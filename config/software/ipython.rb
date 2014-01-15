@@ -16,24 +16,16 @@
 # limitations under the License.
 #
 
-name 'brache'
-maintainer 'Balanced <dev@balancedpayments.com>'
-homepage 'https://github.com/balanced/brache'
+name 'ipython'
+version '1.1.0'
 
-replaces 'brache'
-install_path '/opt/brache'
-build_version '0'
-build_iteration 1
+dependency 'setuptools'
+dependency 'python-readline'
 
-# creates required build directories
-dependency 'preparation'
+source url: "https://pypi.python.org/packages/source/i/ipython/ipython-#{version}.tar.gz", md5: '70d69c78122923879232567ac3c47cef'
 
-# brache dependencies/components
-dependency 'brache'
-dependency 'ipython'
+relative_path "ipython-#{version}"
 
-# version manifest file
-dependency 'version-manifest'
-
-exclude '\.git*'
-exclude 'bundler\/git'
+build do
+  command "#{install_dir}/embedded/bin/python install --prefix=#{install_dir}/embedded"
+end
