@@ -27,7 +27,7 @@ dependency "ncurses"
 source :url => "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.gz",
        :md5 => "577f503a3fbabbe26145d0c6dae0b440"
 
-relative_path "libpq-#{version}"
+relative_path "postgresql-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
