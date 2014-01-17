@@ -25,7 +25,7 @@ dependency 'libxslt'
 dependency 'libpq'
 
 source git: 'git@github.com:balanced/brache.git'
-version ENV['BRACHE_VERSION'] || 'fixit'
+version ENV['BRACHE_VERSION'] || 'master'
 
 relative_path 'brache'
 
