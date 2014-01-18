@@ -45,7 +45,7 @@ build do
   end
 
   command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded . kazoo>=1.3.1 newrelic>=1.13.1.31 raven==3.5.2", cwd: "#{project_dir}/src"
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded brache"
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded brache[router]"
   command "ln -fs #{install_dir}/embedded/bin/rump #{install_dir}/bin/rump"
   command "ln -fs #{install_dir}/embedded/bin/rumpd #{install_dir}/bin/rumpd"
 end
