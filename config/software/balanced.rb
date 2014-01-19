@@ -26,6 +26,7 @@ dependency 'libxml2'
 dependency 'libxslt'
 dependency 'libpq'
 
+# source git: 'git@github.com:poundpay/balanced.git'
 source :path => File.expand_path('balanced', Omnibus.project_root)
 version ENV['BALANCED_VERSION'] || 'fixit'
 
