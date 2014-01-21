@@ -22,7 +22,7 @@ dependency 'pip'
 dependency 'setuptools'
 
 source git: 'https://github.com/bninja/bogs.git'
-version 'master'
+version 'v0.1.0'
 
 relative_path 'bogs'
 
