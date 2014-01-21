@@ -53,16 +53,5 @@ build do
 	  "PATH" => "/opt/brache/embedded/bin:#{ENV['PATH']}",
   }
 
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", env: env
-  command [
-      "#{install_dir}/embedded/bin/pip install",
-      "--install-option=--prefix=#{install_dir}/embedded",
-      "bogs",
-      "'gevent==1.0'",
-      "'gunicorn>=18.0,<19.0'",
-      "'sterling>=3.0.0,<3.1.0'",
-      "'newrelic>=2.8.0.7'",
-      "'raven==3.4.1'",
-      "'psycopg2==2.5.2'"
-      ].join(" "), env: env
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded file://#{project_dir}#egg=brache[user]", env: env
 end
