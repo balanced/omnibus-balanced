@@ -21,6 +21,7 @@ name 'rump'
 
 dependency 'setuptools'
 dependency 'pip'
+dependency 'bogs'
 
 source git: 'git@github.com:balanced/rump.git'
 version ENV['RUMP_VERSION'] || 'ohaul'
