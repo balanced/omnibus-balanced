@@ -21,13 +21,11 @@ name 'balanced'
 
 dependency 'pip'
 
-dependency 'libpq'
 dependency 'libxml2'
 dependency 'libxslt'
 dependency 'libpq'
 
-# source git: 'git@github.com:poundpay/balanced.git'
-source :path => File.expand_path('balanced', Omnibus.project_root)
+source git: 'git@github.com:poundpay/balanced.git'
 version ENV['BALANCED_VERSION'] || 'fixit'
 
 relative_path 'balanced'
@@ -56,5 +54,5 @@ build do
 	  "PATH" => "/opt/balanced/embedded/bin:#{ENV['PATH']}",
   }
 
-  command "#{install_dir}/embedded/bin/pip install . --install-option='--prefix=#{install_dir}/embedded'", env: env
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
