@@ -11,3 +11,4 @@ vendor/cookbooks
 .pip/
 .ssh/
 .ruby-version
+*.iml
