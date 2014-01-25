@@ -25,7 +25,7 @@ dependency 'libxml2'
 dependency 'libxslt'
 dependency 'libpq'
 
-source git: 'git@github.com:poundpay/balanced.git'
+source git: 'git@github.com:PoundPay/balanced.git'
 version ENV['BALANCED_VERSION'] || 'fixit'
 
 relative_path 'balanced'
