@@ -24,7 +24,7 @@ dependency 'pip'
 dependency 'bogs'
 
 source git: 'git@github.com:balanced/rump.git'
-version ENV['RUMP_VERSION'] || 'ohaul'
+version ENV['RUMP_VERSION'] || 'master'
 
 relative_path 'rump'
 
