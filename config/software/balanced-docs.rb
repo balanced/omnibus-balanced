@@ -19,7 +19,7 @@
 name 'balanced-docs'
 
 source git: 'git@github.com:balanced/balanced-docs.git'
-version ENV['BALANCED_DOCS_VERSION'] || 'master'
+version ENV['BALANCED_DOCS_VERSION'] || 'multi-rev'
 
 relative_path 'balanced-docs'
 
@@ -40,7 +40,9 @@ build do
     end
   end
 
+  command "git submodule update --init --recursive"
   command "pip install -r requirements.txt"
+  command "pip install -e ."
   command "npm install"
   command "make clean all"
   command "rsync --delete --whole-file --recursive --links -vO --perms site/ #{install_dir}/"
