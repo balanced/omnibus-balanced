@@ -34,5 +34,5 @@ build do
     "PATH" => "/opt/brache/embedded/bin:#{ENV['PATH']}",
   }
 
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", env: env
+  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
