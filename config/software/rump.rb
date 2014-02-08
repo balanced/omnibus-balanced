@@ -44,9 +44,9 @@ build do
       end
     end
   end
-
-  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded file://#{project_dir}/src#egg=rump[kazoo,newrelic,raven,sterling]", cwd: "#{project_dir}/src"
-  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded brache[router]"
+  command "rm -rf /tmp/rump-build"
+  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded file://#{project_dir}/src#egg=rump[kazoo,newrelic,raven,sterling] -b /tmp/rump-build", cwd: "#{project_dir}/src"
+  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded brache[router] -b /tmp/rump-build"
   command "ln -fs #{install_dir}/embedded/bin/rump #{install_dir}/bin/rump"
   command "ln -fs #{install_dir}/embedded/bin/rumpd #{install_dir}/bin/rumpd"
 end
