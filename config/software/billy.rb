@@ -45,6 +45,12 @@ build do
     end
   end
 
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded -r requirements.txt"
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded ."
+  [
+    'psycopg2',
+    '-r requirements.txt',
+    '.'
+  ].each do |target|
+    command "#{ install_dir }/embedded/bin/pip install --upgrade " \
+            "--install-option=--prefix=#{ install_dir }/embedded #{ target }"
+  end
 end
