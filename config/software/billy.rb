@@ -53,4 +53,6 @@ build do
     command "#{ install_dir }/embedded/bin/pip install --upgrade " \
             "--install-option=--prefix=#{ install_dir }/embedded #{ target }"
   end
+  command "mkdir #{ install_dir }/embedded/share/billy"
+  command "cp -R alembic/ #{ install_dir }/embedded/share/billy"
 end
