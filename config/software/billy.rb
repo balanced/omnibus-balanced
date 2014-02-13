@@ -23,8 +23,7 @@ dependency 'pip'
 
 dependency 'libpq'
 
-source :git => 'https://github.com/balanced/billy.git',
-       :version => ENV['BILLY_VERSION'] || nil
+source :git => 'https://github.com/balanced/billy.git'
 version ENV['BILLY_VERSION'] || 'master'
 
 relative_path 'billy'
