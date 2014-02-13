@@ -21,8 +21,8 @@ name 'billy'
 dependency 'setuptools'
 dependency 'pip'
 
-source git: 'git@github.com:balanced/billy.git'
-version ENV['BILLY_VERSION'] || 'invoicing'
+source git: 'https://github.com/balanced/billy.git'
+version ENV['BILLY_VERSION'] || 'master'
 
 relative_path 'billy'
 
@@ -42,6 +42,10 @@ build do
     end
   end
 
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded -r requirements.txt"
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded ."
+  env = {
+    "PIP_CONFIG_FILE" => ".pip/pip.conf",  # ensure we use our own PyPi
+  }
+
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded -r requirements.txt", env: env
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", env: env
 end

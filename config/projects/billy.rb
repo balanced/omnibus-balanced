@@ -22,7 +22,7 @@ homepage 'https://github.com/balanced/billy'
 
 replaces        'billy'
 install_path    '/opt/billy'
-build_version   Omnibus::BuildVersion.new.semver
+build_version   '0'
 build_iteration 1
 
 # creates required build directories
