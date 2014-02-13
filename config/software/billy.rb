@@ -46,7 +46,7 @@ build do
   end
 
   # copy alembic folder to share folder
-  command "mkdir #{ install_dir }/embedded/share/billy"
+  command "mkdir -p #{ install_dir }/embedded/share/billy"
   command "cp -R alembic/ #{ install_dir }/embedded/share/billy"
   # install requirements
   [
