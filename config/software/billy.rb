@@ -42,10 +42,6 @@ build do
     end
   end
 
-  env = {
-    "PIP_CONFIG_FILE" => ".pip/pip.conf",  # ensure we use our own PyPi
-  }
-
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded -r requirements.txt", env: env
-  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded .", env: env
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded -r requirements.txt"
+  command "#{install_dir}/embedded/bin/pip install --install-option=--prefix=#{install_dir}/embedded ."
 end
