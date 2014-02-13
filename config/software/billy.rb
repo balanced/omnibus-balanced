@@ -38,6 +38,7 @@ build do
       shell.run_command
       if shell.exitstatus == 0
         build_version = shell.stdout.chomp
+        build_version = build_version[1..-1] if build_version[0] == 'v'
         project.build_version build_version
         project.build_iteration ENV['BILLY_PACKAGE_ITERATION'] ? ENV['BILLY_PACKAGE_ITERATION'].to_i : 1
       end
