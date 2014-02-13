@@ -21,6 +21,8 @@ name 'billy'
 dependency 'setuptools'
 dependency 'pip'
 
+dependency 'libxml2'
+dependency 'libxslt'
 dependency 'libpq'
 
 source :git => 'https://github.com/balanced/billy.git'
@@ -49,6 +51,12 @@ build do
   command "mkdir -p #{ install_dir }/embedded/share/billy"
   command "cp -R alembic/ #{ install_dir }/embedded/share/billy"
   # install requirements
+  env = {
+    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+    "PATH" => "/opt/billy/embedded/bin:#{ENV['PATH']}",
+  }
   [
     'uwsgi',
     'psycopg2',
@@ -56,6 +64,6 @@ build do
     '.'
   ].each do |target|
     command "#{ install_dir }/embedded/bin/pip install --upgrade " \
-            "--install-option=--prefix=#{ install_dir }/embedded #{ target }"
+            "--install-option=--prefix=#{ install_dir }/embedded #{ target }", env: env
   end
 end
