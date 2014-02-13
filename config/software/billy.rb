@@ -21,6 +21,8 @@ name 'billy'
 dependency 'setuptools'
 dependency 'pip'
 
+dependency 'libpq'
+
 source git: 'https://github.com/balanced/billy.git'
 version ENV['BILLY_VERSION'] || 'master'
 
