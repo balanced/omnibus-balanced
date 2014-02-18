@@ -26,7 +26,7 @@ dependency 'libxslt'
 dependency 'libpq'
 
 source git: 'git@github.com:PoundPay/balanced.git'
-version ENV['BALANCED_VERSION'] || 'fixit'
+version ENV['BALANCED_VERSION'] || 'omnibussed'
 
 relative_path 'balanced'
 
@@ -54,5 +54,7 @@ build do
 	  "PATH" => "/opt/balanced/embedded/bin:#{ENV['PATH']}",
   }
 
-  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
+  temporary_build_dir = '/tmp/balanced-build'
+  command "rm -rf #{temporary_build_dir}"
+  command "#{install_dir}/embedded/bin/pip install -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
