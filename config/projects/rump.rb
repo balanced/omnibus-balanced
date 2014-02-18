@@ -1,5 +1,4 @@
 #
-# Author:: Andrew Imam <andrew@balancedpayments.com>
 # Author:: Noah Kantrowitz <noah@coderanger.net>
 #
 # Copyright 2014, Balanced, Inc.

@@ -1,5 +1,4 @@
 #
-# Author:: Andrew Imam <andrew@balancedpayments.com>
 # Author:: Noah Kantrowitz <noah@coderanger.net>
 #
 # Copyright 2014, Balanced, Inc.
@@ -21,7 +20,6 @@ name 'rump'
 
 dependency 'setuptools'
 dependency 'pip'
-dependency 'bogs'
 
 source git: 'git@github.com:balanced/rump.git'
 version ENV['RUMP_VERSION'] || 'master'
@@ -45,7 +43,8 @@ build do
     end
   end
   command "rm -rf /tmp/rump-build"
-  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded file://#{project_dir}/src#egg=rump[kazoo,newrelic,raven,sterling] -b /tmp/rump-build", cwd: "#{project_dir}/src"
+  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded file://#{project_dir}/src#egg=rump[kazoo,newrelic] -b /tmp/rump-build", cwd: "#{project_dir}/src"
+  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded 'sterling[util,web] >=3.0.8,<3.1.0' -b /tmp/rump-build", cwd: "#{project_dir}/src"
   command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded brache[router] -b /tmp/rump-build"
   command "ln -fs #{install_dir}/embedded/bin/rump #{install_dir}/bin/rump"
   command "ln -fs #{install_dir}/embedded/bin/rumpd #{install_dir}/bin/rumpd"
