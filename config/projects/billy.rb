@@ -30,6 +30,7 @@ dependency 'preparation'
 
 # brache dependencies/components
 dependency 'billy'
+dependency 'ipython'
 
 # version manifest file
 dependency 'version-manifest'
