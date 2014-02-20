@@ -21,7 +21,9 @@ name 'doughboy'
 dependency 'setuptools'
 dependency 'pip'
 
-source :git => 'https://github.com/balanced/invoice_feeder.git'
+dependency 'libyaml'
+
+source :git => 'https://github.com/balanced/doughboy.git'
 version ENV['DOUGHBOY_VERSION'] || 'master'
 
 relative_path 'doughboy'
