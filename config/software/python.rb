@@ -50,4 +50,10 @@ build do
   #block do
   #  FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"))
   #end
+
+  # remove dbm library as in most cases it will not be used, and it links to
+  # libdbm in system if avaialbe. Which will cause dependencies check fail
+  block do
+    FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/dbm.*"))
+  end
 end
