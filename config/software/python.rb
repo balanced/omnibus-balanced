@@ -48,7 +48,6 @@ build do
            # this issue, I disable these module here. We can add these back
            # once support for those library is ready. Reference to issue:
            # https://github.com/opscode/omnibus-software/pull/70
-           "--without-sqlite3",
            "--without-dbm",
            "--without-gdbm",
            ].join(" "), :env => env
