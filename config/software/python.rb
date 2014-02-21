@@ -24,6 +24,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 dependency "sqlite3"
+dependency "gdbm"
 
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
@@ -41,13 +42,6 @@ build do
            "--prefix=#{install_dir}/embedded",
            "--enable-unicode=ucs4",
            "--enable-shared",
-           # NOTICE: we will encounter dependencies check failure if the building
-           # environment happens to have these libraries installed. For solving
-           # this issue, I disable these module here. We can add these back
-           # once support for those library is ready. Reference to issue:
-           # https://github.com/opscode/omnibus-software/pull/70
-           "--without-dbm",
-           "--without-gdbm",
            ].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
