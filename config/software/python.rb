@@ -37,6 +37,7 @@ env = {
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
+           "--enable-unicode=ucs4",
            "--enable-shared"].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
