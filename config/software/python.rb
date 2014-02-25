@@ -24,6 +24,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 dependency "sqlite3"
+dependency "gdbm"
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
        :md5 => '1d8728eb0dfcac72a0fd99c17ec7f386'
@@ -41,7 +42,8 @@ build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--enable-unicode=ucs4",
-           "--enable-shared"].join(" "), :env => env
+           "--enable-shared",
+           ].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
 
@@ -49,4 +51,10 @@ build do
   #block do
   #  FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"))
   #end
+
+  # remove dbm library as in most cases it will not be used, and it links to
+  # libdbm in system if avaialbe. Which will cause dependencies check fail
+  block do
+    FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/dbm.*"))
+  end
 end
