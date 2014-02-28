@@ -60,7 +60,7 @@ build do
   [
     'uwsgi',
     'psycopg2',
-    'newrelic==2.14.0.11',
+    'newrelic',
     '-r requirements.txt',
     '.'
   ].each do |target|
