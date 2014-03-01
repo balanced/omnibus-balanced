@@ -46,7 +46,7 @@ build do
       end
     end
   end
-
+  
   # copy alembic folder to share folder
   command "mkdir -p #{ install_dir }/embedded/share/billy"
   command "cp -R alembic/ #{ install_dir }/embedded/share/billy"
@@ -67,4 +67,34 @@ build do
     command "#{ install_dir }/embedded/bin/pip install --upgrade " \
             "--install-option=--prefix=#{ install_dir }/embedded #{ target }", env: env
   end
+
+  # get current git revision and write to file for billy
+  block do
+    project = self.project
+    if project.name == 'billy'
+      # get git revision
+      shell = Mixlib::ShellOut.new('git rev-parse HEAD', cwd: self.project_dir)
+      shell.run_command
+      if shell.exitstatus != 0
+        return
+      end
+      git_revision = shell.stdout.chomp
+      # get billy package folder
+      shell = Mixlib::ShellOut.new(
+        "#{ install_dir }/embedded/bin/python -c "\
+        "'import os; import billy; print(os.path.dirname(billy.__file__))'", 
+        cwd: self.project_dir
+      )
+      shell.run_command
+      if shell.exitstatus != 0
+        return
+      end
+      billy_dir_path = shell.stdout.chomp
+      # write the revision.txt file
+      File.open("#{ billy_dir_path }/revision.txt", 'wt') do |revfile|  
+        revfile.puts git_revision
+      end
+    end
+  end
+
 end
