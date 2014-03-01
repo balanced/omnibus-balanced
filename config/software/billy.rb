@@ -79,19 +79,8 @@ build do
         return
       end
       git_revision = shell.stdout.chomp
-      # get billy package folder
-      shell = Mixlib::ShellOut.new(
-        "#{ install_dir }/embedded/bin/python -c "\
-        "'import os; import billy; print(os.path.abspath(os.path.dirname(billy.__file__)))'", 
-        cwd: self.project_dir
-      )
-      shell.run_command
-      if shell.exitstatus != 0
-        return
-      end
-      billy_dir_path = shell.stdout.chomp
       # write the revision.txt file
-      File.open("#{ billy_dir_path }/revision.txt", 'wt') do |revfile|  
+      File.open("#{ install_dir }/embedded/lib/python2.7/site-packages/billy/revision.txt", 'wt') do |revfile|  
         revfile.puts git_revision
       end
     end
