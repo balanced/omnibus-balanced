@@ -82,7 +82,7 @@ build do
       # get billy package folder
       shell = Mixlib::ShellOut.new(
         "#{ install_dir }/embedded/bin/python -c "\
-        "'import os; import billy; print(os.path.dirname(billy.__file__))'", 
+        "'import os; import billy; print(os.path.abspath(os.path.dirname(billy.__file__)))'", 
         cwd: self.project_dir
       )
       shell.run_command
