@@ -25,6 +25,7 @@ replaces 'precog'
 install_path '/opt/precog'
 build_version '0'
 build_iteration 1
+build_retries 0
 
 # creates required build directories
 dependency 'preparation'

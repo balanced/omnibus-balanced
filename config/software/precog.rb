@@ -19,24 +19,31 @@
 
 name 'precog'
 
-dependency 'pip'
+#dependency 'pip'
+#
+#dependency 'libxml2'
+#dependency 'libxslt'
+#dependency 'libpq'
+dependency 'gfortran'
+dependency 'blas'
+dependency 'lapack'
+dependency 'atlas'
 
-dependency 'libxml2'
-dependency 'libxslt'
-dependency 'libpq'
 #   libatlas-dev
 #   libatlas-base-dev
 #   liblapack-dev
 #   gfortran
 #   postgresql-server-dev-all
 
-source git: 'git@github.com:balanced/precog.git'
+# source git: 'git@github.com:balanced/precog.git'
+source :path => File.expand_path('precog', Omnibus.project_root)
 version ENV['PRECOG_VERSION'] || 'master'
 
 relative_path 'precog'
 
 always_build true
 
+# gotta use the ENV file hack thing
 build do
 
   block do
