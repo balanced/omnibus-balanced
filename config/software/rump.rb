@@ -18,7 +18,6 @@
 
 name 'rump'
 
-dependency 'setuptools'
 dependency 'pip'
 
 source git: 'git@github.com:balanced/rump.git'
@@ -42,10 +41,10 @@ build do
       end
     end
   end
-  command "rm -rf /tmp/rump-build"
-  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded file://#{project_dir}/src#egg=rump[kazoo,newrelic] -b /tmp/rump-build", cwd: "#{project_dir}/src"
-  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded 'sterling[util,web] >=3.0.9,<3.1.0' -b /tmp/rump-build", cwd: "#{project_dir}/src"
-  command "#{install_dir}/embedded/bin/pip install --upgrade --install-option=--prefix=#{install_dir}/embedded brache[router] -b /tmp/rump-build"
+  command 'rm -rf /tmp/rump-build'
+  command "#{install_dir}/embedded/bin/pip install --no-use-wheel --upgrade --install-option=--prefix=#{install_dir}/embedded file://#{project_dir}/src#egg=rump[kazoo,newrelic] -b /tmp/rump-build", cwd: "#{project_dir}/src"
+  command "#{install_dir}/embedded/bin/pip install --no-use-wheel --upgrade --install-option=--prefix=#{install_dir}/embedded 'sterling[util,web] >=3.0.9,<3.1.0' -b /tmp/rump-build", cwd: "#{project_dir}/src"
+  command "#{install_dir}/embedded/bin/pip install --no-use-wheel --upgrade --install-option=--prefix=#{install_dir}/embedded brache[router] -b /tmp/rump-build"
   command "ln -fs #{install_dir}/embedded/bin/rump #{install_dir}/bin/rump"
   command "ln -fs #{install_dir}/embedded/bin/rumpd #{install_dir}/bin/rumpd"
 end

@@ -20,7 +20,6 @@ name 'ipython'
 version '1.1.0'
 
 dependency 'readline'
-dependency 'setuptools'
 
 source url: "https://pypi.python.org/packages/source/i/ipython/ipython-#{version}.tar.gz", md5: '70d69c78122923879232567ac3c47cef'
 
