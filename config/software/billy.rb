@@ -63,7 +63,7 @@ build do
     '-r requirements.txt',
     '.'
   ].each do |target|
-    command "#{ install_dir }/embedded/bin/pip install --upgrade " \
+    command "#{ install_dir }/embedded/bin/pip install --no-use-wheel --upgrade " \
             "--install-option=--prefix=#{ install_dir }/embedded #{ target }", env: env
   end
 
