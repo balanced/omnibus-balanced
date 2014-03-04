@@ -18,7 +18,6 @@
 
 name 'billy'
 
-dependency 'setuptools'
 dependency 'pip'
 
 dependency 'libxml2'

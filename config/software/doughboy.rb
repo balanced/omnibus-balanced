@@ -18,7 +18,6 @@
 
 name 'doughboy'
 
-dependency 'setuptools'
 dependency 'pip'
 
 dependency 'libyaml'
