@@ -29,6 +29,8 @@ env = {
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
+# if you want to build lapack, use uncomment this code out, but I just
+# need to download the tar ball to use it for atlas.
 #build do
 #  command 'cp make.inc.example make.inc'
 #  command "make -j #{max_build_jobs} blaslib", :env => env
