@@ -15,11 +15,11 @@
 # limitations under the License.
 #
 
-name 'liblapack'
+name 'lapack'
 version '3.5.0'
 
 source :url => "http://www.netlib.org/lapack/lapack-#{version}.tgz",
-       :md5 => 'e7ba742120bd75339ac4c6fbdd8bce92'
+       :md5 => 'b1d3e3e425b2e44a06760ff173104bdf'
 
 relative_path "lapack-#{version}"
 
@@ -29,14 +29,11 @@ env = {
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
-build do
-  command [ "./configure",
-            "--prefix=#{install_dir}/embedded",
-            "--with-includes=#{install_dir}/embedded/include",
-            "--with-libraries=#{install_dir}/embedded/lib" ].join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "mkdir -p #{install_dir}/embedded/include/postgresql"
-  command "make -C src/include install"
-  command "make -C src/interfaces install"
-  command "make -C src/bin/pg_config install"
-end
+#build do
+#  command 'cp make.inc.example make.inc'
+#  command "make -j #{max_build_jobs} blaslib", :env => env
+#  command "make -j #{max_build_jobs} lib", :env => env
+#  %w(liblapack.a librefblas.a libtmglib.a).each do |library|
+#    command "cp #{library} #{install_dir}/embedded/lib"
+#  end
+#end

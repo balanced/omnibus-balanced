@@ -24,16 +24,7 @@ name 'precog'
 #dependency 'libxml2'
 #dependency 'libxslt'
 #dependency 'libpq'
-dependency 'gfortran'
-dependency 'blas'
-dependency 'lapack'
 dependency 'atlas'
-
-#   libatlas-dev
-#   libatlas-base-dev
-#   liblapack-dev
-#   gfortran
-#   postgresql-server-dev-all
 
 # source git: 'git@github.com:balanced/precog.git'
 source :path => File.expand_path('precog', Omnibus.project_root)
