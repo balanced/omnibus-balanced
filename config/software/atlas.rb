@@ -20,6 +20,7 @@ require 'fileutils'
 name 'atlas'
 version '3.10.1'
 
+dependency 'gfortran'
 dependency 'lapack'
 
 source :url => "http://downloads.sourceforge.net/project/math-atlas/Stable/#{version}/atlas#{version}.tar.bz2",
@@ -34,20 +35,34 @@ env = {
 cache_dir = "#{::File.dirname(::File.dirname(project_dir))}/cache"
 build_dir = "#{::File.dirname(project_dir)}/ATLAS/build"
 
+always_build  true
 relative_path 'ATLAS/build'
+
+::FileUtils.rm_r(build_dir, :force => true)
 
 build do
   block do
     ::FileUtils.rm_r(build_dir, :force => true)
     ::FileUtils.mkdir_p(build_dir)
   end
-
   command [
     "../configure --prefix=#{install_dir}/embedded",
-    '-b 64 -C if gfortran', # architecture is 64bit
+    '-b 64 ',#'-C if gfortran', # architecture is 64bit
     '-Fa alg -fPIC',
     "--with-netlib-lapack-tarfile=#{cache_dir}/lapack-3.5.0.tgz"
   ].join(' '), :env => env
-  command 'make', :env => env
+  command 'make build', :env => env
   command 'make time', :env => env
+  command 'make install', :env => env
+  command "patch -p1 -i #{Omnibus.project_root}/config/patches/#{name}/makefiles.patch", :cwd => "#{build_dir}/lib"
+  command 'make -f makefile.shared.mt', :env => env, :cwd => "#{build_dir}/lib"
+
+  # copy and symlink to proper names
+  command "cp *.so #{install_dir}/embedded/lib", :cwd => "#{build_dir}/lib"
+  command "ln -s #{install_dir}/embedded/lib/libblas.so #{install_dir}/embedded/lib/libblas.so.3"
+  command "ln -s #{install_dir}/embedded/lib/libatlas.so #{install_dir}/embedded/lib/libatlas.so.3gf"
+  %w(liblapack.so liblapack.so.3gf).each do |dest|
+    command "ln -s #{install_dir}/embedded/lib/liblapack.so.3 #{install_dir}/embedded/lib/#{dest}"
+  end
 end
+
