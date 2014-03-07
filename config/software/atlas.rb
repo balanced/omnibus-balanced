@@ -36,8 +36,8 @@ LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{instal
 
 LIB_PATH.join(' -L')
 env = {
-  'LDFLAGS' => "'-L#{LIB_PATH.join(' -L')}' -I#{install_dir}/embedded/include",
-  'CFLAGS' => "'-L#{LIB_PATH.join(' -L')}' -I#{install_dir}/embedded/include",
+  'LDFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
   'LD_RUN_PATH' => "#{LIB_PATH.join(':')}",
   'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
 }

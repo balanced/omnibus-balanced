@@ -23,19 +23,25 @@ source :url => "http://www.netlib.org/lapack/lapack-#{version}.tgz",
 
 relative_path "lapack-#{version}"
 
+LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
+
 env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+  'LDFLAGS' => "-Wl,-rpath,#{LIB_PATH.join(' -Wl,-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  'LD_RUN_PATH' => "#{LIB_PATH.join(':')}",
+  'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
 }
 
-# if you want to build lapack, use uncomment this code out, but I just
-# need to download the tar ball to use it for atlas.
-#build do
-#  command 'cp make.inc.example make.inc'
-#  command "make -j #{max_build_jobs} blaslib", :env => env
-#  command "make -j #{max_build_jobs} lib", :env => env
-#  %w(liblapack.a librefblas.a libtmglib.a).each do |library|
-#    command "cp #{library} #{install_dir}/embedded/lib"
-#  end
-#end
+#if you want to build lapack, use uncomment this code out, but I just
+#need to download the tar ball to use it for atlas.
+build do
+  command 'cp INSTALL/make.inc.gfortran make.inc'
+  patch :source => 'lapack-fpic-gfortran.patch', :plevel => 0
+
+  command "make -j #{max_build_jobs} blaslib", :env => env
+  command "make -j #{max_build_jobs} lib", :env => env
+  %w(liblapack.a librefblas.a libtmglib.a).each do |library|
+    command "cp #{library} #{install_dir}/embedded/lib"
+  end
+  command "ln -sf librefblas.a libblas.a", :cwd => "#{install_dir}/embedded/lib/"
+end

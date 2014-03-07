@@ -29,9 +29,11 @@ source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
 
 relative_path "Python-#{version}"
 
+LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
+
 env = {
   "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
-  "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+  "LDFLAGS" => "-Wl,-rpath,#{LIB_PATH.join(' -Wl,-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include"
 }
 
 build do

@@ -20,15 +20,18 @@ name 'blas'
 source :url => 'http://www.netlib.org/blas/blas.tgz',
        :md5 => '5e99e975f7a1e3ea6abcad7c6e7e42e6'
 
-relative_path "#{name}"
+relative_path "#{name.upcase}"
+
+LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
+env = {
+  'LDFLAGS' => "-Wl,-rpath,#{LIB_PATH.join(' -Wl,-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  'LD_RUN_PATH' => "#{LIB_PATH.join(':')}",
+  'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+}
+
 
 build do
-  env = {
-      'CFLAGS' => "-I#{install_dir}/embedded/include",
-      'LDFLAGS' => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
-  }
-
   command 'make all', :env => env
-  command 'make install', :env => env
-
+  command "cp -p blas_LINUX.a #{install_dir}/embedded/lib/libblas.a"
 end
