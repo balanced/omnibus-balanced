@@ -24,8 +24,6 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 
-always_build false
-
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
        :md5 => '1d8728eb0dfcac72a0fd99c17ec7f386'
 

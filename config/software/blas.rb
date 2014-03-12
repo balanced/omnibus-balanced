@@ -20,7 +20,7 @@ name 'blas'
 source :url => 'http://www.netlib.org/blas/blas.tgz',
        :md5 => '5e99e975f7a1e3ea6abcad7c6e7e42e6'
 
-relative_path "#{name.upcase}"
+relative_path name.upcase
 
 LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
 env = {

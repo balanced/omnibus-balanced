@@ -32,8 +32,6 @@ env = {
   'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
 }
 
-#if you want to build lapack, use uncomment this code out, but I just
-#need to download the tar ball to use it for atlas.
 build do
   command 'cp INSTALL/make.inc.gfortran make.inc'
   patch :source => 'lapack-fpic-gfortran.patch', :plevel => 0
