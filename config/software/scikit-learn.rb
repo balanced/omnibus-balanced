@@ -22,9 +22,9 @@ dependency 'scipy'
 dependency 'pip'
 
 source :url => "https://github.com/scikit-learn/scikit-learn/archive/#{version}.tar.gz",
-       :md5 => '790ad23547bb7f428060636628e13491'
+       :md5 => '75344dd3b85b964a57352443c21e886e'
 
-relative_path "scipy-#{version}"
+relative_path "scikit-learn-#{version}"
 
 LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
 
@@ -35,7 +35,7 @@ env = {
 }
 
 build do
-  temporary_build_dir = '/tmp/scipy-build'
+  temporary_build_dir = '/tmp/scikit-learn-build'
   command "rm -rf #{temporary_build_dir}"
   command "#{install_dir}/embedded/bin/pip install -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
