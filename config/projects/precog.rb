@@ -31,7 +31,7 @@ dependency 'preparation'
 
 # precog dependencies/components
 dependency 'precog'
-dependency 'ipython'
+#dependency 'ipython'
 
 # version manifest file
 dependency 'version-manifest'

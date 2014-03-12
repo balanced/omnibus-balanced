@@ -15,23 +15,27 @@
 # limitations under the License.
 #
 
-name 'blas'
+name 'scipy'
+version '0.13.0'
 
-source :url => 'http://www.netlib.org/blas/blas.tgz',
-       :md5 => '5e99e975f7a1e3ea6abcad7c6e7e42e6'
+dependency 'numpy'
+dependency 'pip'
 
-relative_path "#{name.upcase}"
+source :url => "http://downloads.sourceforge.net/project/scipy/scipy/#{version}/scipy-#{version}.tar.gz",
+       :md5 => 'ffa1e9bfd2bbdf3f17f4cf8139084098'
+
+relative_path "scipy-#{version}"
 
 LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
+
 env = {
-  "LDFLAGS" => "-Wl,-rpath,#{LIB_PATH.join(',-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  'LDFLAGS' => "-Wl,-rpath=#{LIB_PATH.join(' -Wl,-rpath=')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include -shared",
   'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
-  'LD_RUN_PATH' => "#{LIB_PATH.join(':')}",
-  'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
 }
 
-
 build do
-  command 'make all', :env => env
-  command "cp -p blas_LINUX.a #{install_dir}/embedded/lib/libblas.a"
+  temporary_build_dir = '/tmp/scipy-build'
+  command "rm -rf #{temporary_build_dir}"
+  command "#{install_dir}/embedded/bin/pip install -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end

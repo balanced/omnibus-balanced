@@ -26,6 +26,15 @@ build do
     FileUtils.mkdir_p(File.join(Omnibus.config.source_dir, "gcc-build"))
     FileUtils.move(File.join(Omnibus.config.source_dir, "gcc-#{version}/"),
       File.join(Omnibus.config.source_dir, "gcc-build/"))
+    # Added by Mahmoud:
+    # - This is a quick hack to try to get all the paths to work
+    #   correctly. For some reason, even when passing linker flags down
+    #   stuff gets linked to system path. I don't know how to fix.
+    FileUtils.ln_s(
+        "#{install_dir}/embedded/lib",
+        "#{install_dir}/embedded/lib64",
+        :force => true
+    )
   end
 
   command(["./gcc-#{version}/configure",

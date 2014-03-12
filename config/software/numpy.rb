@@ -15,23 +15,29 @@
 # limitations under the License.
 #
 
-name 'blas'
+name 'numpy'
+version '1.8.0'
 
-source :url => 'http://www.netlib.org/blas/blas.tgz',
-       :md5 => '5e99e975f7a1e3ea6abcad7c6e7e42e6'
+dependency 'gfortran'
+dependency 'blas'
+dependency 'lapack'
+dependency 'pip'
 
-relative_path "#{name.upcase}"
+source :url => "http://downloads.sourceforge.net/project/numpy/NumPy/#{version}/numpy-#{version}.tar.gz",
+       :md5 => '2a4b0423a758706d592abb6721ec8dcd'
+
+relative_path "numpy-#{version}"
 
 LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
+
 env = {
-  "LDFLAGS" => "-Wl,-rpath,#{LIB_PATH.join(',-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  'LDFLAGS' => "-Wl,-rpath=#{LIB_PATH.join(' -Wl,-rpath=')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include -shared",
   'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
-  'LD_RUN_PATH' => "#{LIB_PATH.join(':')}",
-  'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
 }
 
-
 build do
-  command 'make all', :env => env
-  command "cp -p blas_LINUX.a #{install_dir}/embedded/lib/libblas.a"
+  temporary_build_dir = '/tmp/numpy-build'
+  command "rm -rf #{temporary_build_dir}"
+  command "#{install_dir}/embedded/bin/pip install -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end

@@ -24,10 +24,10 @@ name 'precog'
 #dependency 'libxml2'
 #dependency 'libxslt'
 #dependency 'libpq'
-dependency 'gfortran'
-dependency 'blas'
-dependency 'lapack'
 dependency 'pip'
+dependency 'numpy'
+dependency 'scipy'
+
 
 # source git: 'git@github.com:balanced/precog.git'
 source :path => File.expand_path('precog', Omnibus.project_root)
@@ -40,9 +40,8 @@ always_build true
 LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
 
 env = {
-  'LDFLAGS' => "-Wl,-rpath,#{LIB_PATH.join(' -Wl,-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include -shared",
+  'LDFLAGS' => "-Wl,-rpath=#{LIB_PATH.join(' -Wl,-rpath=')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
   'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
-  'LD_RUN_PATH' => "#{LIB_PATH.join(':')}",
   'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
 }
 

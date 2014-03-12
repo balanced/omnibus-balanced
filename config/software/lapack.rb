@@ -26,7 +26,7 @@ relative_path "lapack-#{version}"
 LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
 
 env = {
-  'LDFLAGS' => "-Wl,-rpath,#{LIB_PATH.join(' -Wl,-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
+  "LDFLAGS" => "-Wl,-rpath,#{LIB_PATH.join(',-rpath,')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
   'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
   'LD_RUN_PATH' => "#{LIB_PATH.join(':')}",
   'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
