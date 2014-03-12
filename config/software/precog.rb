@@ -28,8 +28,7 @@ dependency 'numpy'
 dependency 'scipy'
 dependency 'scikit-learn'
 
-# source git: 'git@github.com:balanced/precog.git'
-source :path => File.expand_path('precog', Omnibus.project_root)
+source git: 'git@github.com:balanced/precog.git'
 version ENV['PRECOG_VERSION'] || 'master'
 
 relative_path 'precog'
