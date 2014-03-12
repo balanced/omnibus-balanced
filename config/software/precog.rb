@@ -20,15 +20,13 @@
 name 'precog'
 
 
-#
-#dependency 'libxml2'
-#dependency 'libxslt'
-#dependency 'libpq'
+dependency 'libxml2'
+dependency 'libxslt'
+dependency 'libpq'
 dependency 'pip'
 dependency 'numpy'
 dependency 'scipy'
 dependency 'scikit-learn'
-
 
 # source git: 'git@github.com:balanced/precog.git'
 source :path => File.expand_path('precog', Omnibus.project_root)
@@ -65,5 +63,5 @@ build do
 
   temporary_build_dir = '/tmp/precog-build'
   command "rm -rf #{temporary_build_dir}"
-  command "#{install_dir}/embedded/bin/pip install -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
+  command "#{install_dir}/embedded/bin/pip install -v --no-use-wheel -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
