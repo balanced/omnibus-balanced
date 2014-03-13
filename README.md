@@ -5,98 +5,61 @@ This project creates full-stack platform-specific packages for
 
 ## Installation
 
-We'll assume you have Ruby 1.9+ and Bundler installed. First ensure all
-required gems are installed and ready to use:
+Use the [balanced-omnibus](https://github.com/balanced-cookbooks/balanced-omnibus)
+cookbook to setup the builder lab, do NOT use or build a Vagrantfile  with this
+repository.
 
-```shell
-$ bundle install --binstubs
-```
+## Ok, what's this project for?
 
-## Usage
+We use [Omnibus](https://github.com/opscode/omnibus-ruby) to essentially build
+self-compacted packages (i.e. `deb`, `rpm`, etc.) to avoid many moving parts for
+your application to run when deploying a particular application to your server.
 
-### Build
+This project is supposed to create an "omnibus" installer for your application.
+How that's defined is why this repository exists :)
 
-You create a platform-specific package using the `build project` command:
+## I want to know more about this "Omnibus"
 
-```shell
-$ bin/omnibus build project balanced
-```
+These blog posts are a pretty good explanation:
 
-The platform/architecture type of the package created will match the platform
-where the `build project` command is invoked. So running this command on say a
-MacBook Pro will generate a Mac OS X specific package. After the build
-completes packages will be available in `pkg/`.
+- http://blog.scoutapp.com/articles/2013/06/21/omnibus-tutorial-package-a-standalone-ruby-gem
+- http://blog.opsfab.com/2014/01/09/omnibus-inspircd-part-two.html
+- http://blog.gemnasium.com/post/60091868742/creating-full-stack-installers-with-omnibus
 
-### Clean
+If you are familiar with the Ruby eco-system, you will probably notice that Omnibus is a gem.
+Omnibus's gem lives at [Omnibus](https://github.com/opscode/omnibus-ruby). Opscode has
+pre-written some software recipes to install common gems that they need, but, sometimes
+that's not good enough or not customized enough for our use case.
 
-You can clean up all temporary files generated during the build process with
-the `clean` command:
+That's why Omnibus is a gem, because if you want to make modifications to the
+software repository provided by default or add your own definitions, just point
+it to your fork.
 
-```shell
-$ bin/omnibus clean
-```
+### Using Your Own Software Definitions
 
-Adding the `--purge` purge option removes __ALL__ files generated during the
-build including the project install directory (`/opt/balanced`) and
-the package cache directory (`/var/cache/omnibus/pkg`):
+These are Opscode's software definitions.  We like that others get utility out of them, but they
+are not meant to be comprehensive of all software on the planet.  We won't, for example, support building
+every version of ruby ever released.  You have at least three choices for writing your own
+software definitions.
 
-```shell
-$ bin/omnibus clean --purge
-```
+### Software Definitions in your Project
 
-### Help
+If you only have one project you can fork or add software definitions directly into the `config/software`
+directory of your project.  The chef client build [uses this approach](https://github.com/opscode/omnibus-chef/tree/master/config/software).
 
-Full help for the Omnibus command line interface can be accessed with the
-`help` command:
+### Fork omnibus-software
 
-```shell
-$ bin/omnibus help
-```
+You can make a fork of omnibus-software (or use a repo named omnibus-software) and update the Gemfile in
+your project to point at your git repo instead of opscode's.
 
-## Vagrant-based Virtualized Build Lab
+### Use a gem other than omnibus-software
 
-Every Omnibus project ships will a project-specific
-[Berksfile](http://berkshelf.com/) and [Vagrantfile](http://www.vagrantup.com/)
-that will allow you to build your projects on the following platforms:
+You can use the `software_gem` config option in omnibus.rb in the root of your project to point at a differently
+named gem.  If you wanted to release 'your' omnibus-software gem to rubygems.org or something you could use this
+feature to avoid a name collision there.
 
-* CentOS 5 64-bit
-* CentOS 6 64-bit
-* Ubuntu 10.04 64-bit
-* Ubuntu 11.04 64-bit
-* Ubuntu 12.04 64-bit
+## Cool, what do I need to do to start hacking?
 
-Please note this build-lab is only meant to get you up and running quickly;
-there's nothing inherent in Omnibus that restricts you to just building CentOS
-or Ubuntu packages. See the Vagrantfile to add new platforms to your build lab.
-
-The only requirements for standing up this virtualized build lab are:
-
-* VirtualBox - native packages exist for most platforms and can be downloaded
-from the [VirtualBox downloads page](https://www.virtualbox.org/wiki/Downloads).
-* Vagrant 1.2.1+ - native packages exist for most platforms and can be downloaded
-from the [Vagrant downloads page](http://downloads.vagrantup.com/).
-
-The [vagrant-berkshelf](https://github.com/RiotGames/vagrant-berkshelf) and
-[vagrant-omnibus](https://github.com/schisamo/vagrant-omnibus) Vagrant plugins
-are also required and can be installed easily with the following commands:
-
-```shell
-$ vagrant plugin install vagrant-berkshelf
-$ vagrant plugin install vagrant-omnibus
-```
-
-Once the pre-requisites are installed you can build your package across all
-platforms with the following command:
-
-```shell
-$ vagrant up
-```
-
-If you would like to build a package for a single platform the command looks like this:
-
-```shell
-$ vagrant up PLATFORM
-```
-
-The complete list of valid platform names can be viewed with the
-`vagrant status` command.
+- Put your project in the `config/projects` directory
+- Create a recipe in the `config/software` directory
+- Use the [balanced-omnibus](https://github.com/balanced-cookbooks/balanced-omnibus) to setup and iterate on your lab

@@ -1,0 +1,8 @@
+--- make.inc    2014-03-07 09:23:19.270017915 +0000
++++ make.inc2   2014-03-07 09:27:48.677267294 +0000
+@@ -16 +16 @@
+-OPTS     = -O2 -frecursive
++OPTS     = -O2 -frecursive -fPIC
+@@ -18 +18 @@
+-NOOPT    = -O0 -frecursive
++NOOPT    = -O0 -frecursive -fPIC
