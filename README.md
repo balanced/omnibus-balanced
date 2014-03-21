@@ -63,3 +63,24 @@ feature to avoid a name collision there.
 - Put your project in the `config/projects` directory
 - Create a recipe in the `config/software` directory
 - Use the [balanced-omnibus](https://github.com/balanced-cookbooks/balanced-omnibus) to setup and iterate on your lab
+
+## How do I package local projects with uncommitted changes?
+
+Update your balanced-omnibus cookbook vagrant file to contain this snippet:
+```
+(ENV['VAGRANT_SYNC_FOLDERS'] || '').split(':').each do |host_folder|
+  target = "#{guest_project_path}/#{File.basename(host_folder)}"
+  puts "Syncing #{host_folder} to #{target}"
+  config.vm.synced_folder host_folder, target
+end
+```
+
+Specify the source in your omnibus-balanced/config/software/<your project>.rb
+```
+source :path => File.expand_path('<your project name>', Omnibus.project_root)
+```
+
+vagrant up from the balanced-omnibus cookbook
+```
+VAGRANT_SYNC_FOLDERS=<path to your project> bundle exec vagrant provision <your project>
+```
