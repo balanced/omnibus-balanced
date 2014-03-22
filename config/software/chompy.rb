@@ -17,7 +17,10 @@
 name 'chompy'
 
 dependency 'pip'
+
 dependency 'libpq'
+dependency 'libxml2'
+dependency 'libxslt'
 
 source git: 'git@github.com:balanced/chompy.git'
 version ENV['CHOMPY_VERSION'] || 'master'
