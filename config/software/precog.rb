@@ -29,7 +29,7 @@ dependency 'scipy'
 dependency 'scikit-learn'
 
 source git: 'git@github.com:balanced/precog.git'
-version ENV['PRECOG_VERSION'] || 'master'
+version ENV['PRECOG_VERSION'] || 'omnibussed'
 
 relative_path 'precog'
 
@@ -37,13 +37,13 @@ always_build true
 
 LIB_PATH = %W(#{install_dir}/embedded/lib #{install_dir}/embedded/lib64 #{install_dir}/embedded/libexec)
 
+# gotta use the ENV file hack thing <- ?
 env = {
   'LDFLAGS' => "-Wl,-rpath=#{LIB_PATH.join(' -Wl,-rpath=')} -L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
   'CFLAGS' => "-L#{LIB_PATH.join(' -L')} -I#{install_dir}/embedded/include",
   'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
 }
 
-# gotta use the ENV file hack thing
 build do
 
   block do
