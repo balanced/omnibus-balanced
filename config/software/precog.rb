@@ -61,6 +61,5 @@ build do
   end
 
   temporary_build_dir = '/tmp/precog-build'
-  command "rm -rf #{temporary_build_dir}"
-  command "#{install_dir}/embedded/bin/pip install -v --no-use-wheel -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
+  command "rm -rf #{temporary_build_dir} && #{install_dir}/embedded/bin/pip install -v --no-use-wheel -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
