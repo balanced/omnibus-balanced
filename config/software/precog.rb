@@ -62,7 +62,7 @@ build do
 
   temporary_build_dir = '/tmp/precog-build'
   command 'mkdir -p /opt/precog/var/lib'
-  command "/var/cache/omnibus/src/precog/scripts/download-external" do
+  command "/var/cache/omnibus/src/precog/scripts/download-data" do
     cwd '/opt/precog/var/lib'
   end
   command "rm -rf #{temporary_build_dir}"
