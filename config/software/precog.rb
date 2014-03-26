@@ -61,10 +61,8 @@ build do
   end
 
   temporary_build_dir = '/tmp/precog-build'
-  command 'mkdir -p /opt/precog/var/lib'
-  command "/var/cache/omnibus/src/precog/scripts/download-data" do
-    cwd '/opt/precog/var/lib'
-  end
+  command "mkdir -p #{install_dir}/embedded/var/lib"
+  command "#{project_dir}/scripts/download-data", cwd: "#{install_dir}/embedded/var/lib"
   command "rm -rf #{temporary_build_dir}"
   command "#{install_dir}/embedded/bin/pip install -v --no-use-wheel -b #{temporary_build_dir} --upgrade --install-option=--prefix=#{install_dir}/embedded .", env: env
 end
