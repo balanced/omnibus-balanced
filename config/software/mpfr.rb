@@ -15,12 +15,12 @@
 # limitations under the License.
 #
 name "mpfr"
-version "2.4.2"
+version "3.1.2"
 
 dependency "gmp"
 
-source url: "ftp://gcc.gnu.org//pub/gcc/infrastructure/mpfr-2.4.2.tar.bz2",
-       md5: "89e59fe665e2b3ad44a6789f40b059a0"
+source url: "http://www.mpfr.org/mpfr-3.1.2/mpfr-3.1.2.tar.bz2",
+       md5: "ee2c3ac63bf0c2359bf08fc3ee094c19"
 
 relative_path "#{name}-#{version}"
 
