@@ -16,10 +16,10 @@
 #
 
 name "gmp"
-version "4.3.2"
+version "5.1.3"
 
-source :url => "ftp://gcc.gnu.org/pub/gcc/infrastructure/gmp-4.3.2.tar.bz2",
-       :md5 => "dd60683d7057917e34630b4a787932e8"
+source :url => "https://gmplib.org/download/gmp/gmp-5.1.3.tar.bz2",
+       :md5 => "a082867cbca5e898371a97bb27b31fea"
 
 relative_path "#{name}-#{version}"
 
