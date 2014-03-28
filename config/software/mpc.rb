@@ -15,13 +15,13 @@
 # limitations under the License.
 #
 name "mpc"
-version "0.8.1"
+version "1.0.1"
 
 dependency "gmp"
 dependency "mpfr"
 
-source url: "ftp://gcc.gnu.org//pub/gcc/infrastructure/mpc-0.8.1.tar.gz",
-       md5: "5b34aa804d514cc295414a963aedb6bf"
+source url: "ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.1.tar.gz",
+       md5: "b32a2e1a3daa392372fbd586d1ed3679"
 
 relative_path "#{name}-#{version}"
 
