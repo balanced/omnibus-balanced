@@ -45,5 +45,5 @@ build do
   command "pip install -e ."
   command "npm install"
   command "make clean all"
-  command "rsync --delete --whole-file --recursive --links -vO --perms site/ #{install_dir}/"
+  command "rsync --delete --whole-file --recursive --links -vO --perms build/ #{install_dir}/"
 end
