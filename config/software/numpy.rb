@@ -38,17 +38,14 @@ env = {
 
 build do
   block do
-    project = self.project
-    if project.name == 'numpy'
-      # see: https://github.com/numpy/numpy/blob/52d5d109f9dedf4f006b930abef9ff9c54ec1542/site.cfg.example#L7-L8
-      contents = <<-EOF
+    # see: https://github.com/numpy/numpy/blob/52d5d109f9dedf4f006b930abef9ff9c54ec1542/site.cfg.example#L7-L8
+    contents = <<-EOF
 [DEFAULT]
 library_dirs = #{LIB_PATH.join(':')}
 include_dirs = #{install_dir}/embedded/include
-      EOF
-      File.open('/root/.numpy-site.cfg', 'w') do |f|
-        f.write(contents)
-      end
+    EOF
+    File.open('/root/.numpy-site.cfg', 'w') do |f|
+      f.write(contents)
     end
   end
 
