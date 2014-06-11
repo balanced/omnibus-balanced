@@ -18,6 +18,6 @@
 
 source 'https://rubygems.org'
 
-gem 'omnibus', github: 'coderanger/omnibus-ruby'
+gem 'omnibus', github: 'opscode/omnibus-ruby'
 gem 'omnibus-software', github: 'opscode/omnibus-software'
 
