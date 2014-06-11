@@ -19,5 +19,5 @@
 source 'https://rubygems.org'
 
 gem 'omnibus', github: 'coderanger/omnibus-ruby'
-gem 'omnibus-software', github: 'opscode/omnibus-software'
+gem 'omnibus-software', github: 'balanced/omnibus-software', branch: 'balanced'
 
