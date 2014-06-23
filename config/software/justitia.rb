@@ -24,7 +24,7 @@ dependency 'libxml2'
 dependency 'libxslt'
 dependency 'libpq'
 
-source :git => 'https://github.com/balanced/justitia.git'
+source :git => 'git+ssh://git@github.com/balanced/justitia.git'
 version ENV['JUSTITIA_VERSION'] || 'master'
 
 relative_path 'justitia'
