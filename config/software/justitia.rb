@@ -46,9 +46,6 @@ build do
     end
   end
   
-  # copy alembic folder to share folder
-  command "mkdir -p #{ install_dir }/embedded/share/justitia"
-  command "cp -R alembic/ #{ install_dir }/embedded/share/justitia"
   # install requirements
   env = {
     "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
