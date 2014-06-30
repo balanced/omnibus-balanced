@@ -19,7 +19,7 @@
 
 name 'balanced'
 maintainer 'Balanced <dev@balancedpayments.com>'
-homepage 'https://github.com/PoundPay/balanced'
+homepage 'https://github.com/balanced/balanced'
 
 replaces 'balanced'
 install_path '/opt/balanced'
