@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: git://github.com/balanced/omnibus-software.git
-  revision: 49d3ae205b5012a200aec2889e4245028b3411c1
+  revision: 13177002be5140b06eebc46d785430e01037873a
   branch: balanced
   specs:
     omnibus-software (0.0.1)
